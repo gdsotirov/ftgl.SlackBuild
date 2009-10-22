@@ -1,0 +1,11 @@
+ftgl: FTGL (A Freeetype and OpenGL library)
+ftgl:
+ftgl: FTGL is a free cross-platform Open Source C++ library that uses
+ftgl: Freetype2 to simplify rendering fonts in OpenGL applications.
+ftgl: FTGL supports bitmaps, pixmaps, texture maps, outlines, polygon
+ftgl: mesh, and extruded polygon rendering modes.
+ftgl:
+ftgl:
+ftgl:
+ftgl:
+ftgl: Packaged by Georgi D. Sotirov <gdsotirov@dir.bg>
