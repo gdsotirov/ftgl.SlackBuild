@@ -1,14 +1,33 @@
 #!/bin/sh
 #
-# SlackBuild for FTGL
-# Written by Georgi D. Sotirov <gdsotirov@dir.bg>
+# Slackware build script for FTGL
+# Copyright (C) 2009-2011 Georgi D. Sotirov <gdsotirov@dir.bg>
 #
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
+# Visit SlackPack at http://sotirov-bg.net/slackpack/
+#
+# $Id: ftgl.SlackBuild,v 1.2 2011/10/22 17:08:12 gsotirov Exp $
+#
+
 . ../slack-package.conf
 
 NAME=ftgl
 VERSION=2.1.3
 VER_RC=rc5
-BUILD=1
+BUILD=${BUILD:-1}
 ARCH=${ARCH:-i486}
 
 TMP=${TMP:-/tmp}
@@ -33,7 +52,7 @@ mkdir -p $PKG
 
 # Extract the source
 cd $TMP
-tar -jxvf $CWD/$NAME-$VERSION-$VER_RC.tar.bz2
+tar -xvf $CWD/$NAME-$VERSION-$VER_RC.tar.?z* || exit 3
 cd $SRC
 fix_source
 
@@ -44,16 +63,15 @@ CXXFLAGS=$SLKCFLAGS \
             --host=$ARCH-slackware-linux \
             --prefix=/usr \
             --sysconfdir=/etc \
+            --libdir=/usr/lib${LIBDIRSUFFIX} \
             --mandir=/usr/man \
             --docdir=/usr/doc/$NAME-$VERSION \
             --enable-shared=yes \
-            --enable-static=no || exit 2
+            --enable-static=no || exit 4
 
-# Build
-make -j4 all || exit 1 
-
-# Install
-make DESTDIR=$PKG install
+# Build & install
+make -j4 all || exit 5 
+make DESTDIR=$PKG install || exit 6
 
 # Prepare the package
 ( cd $PKG; strip_lib )
